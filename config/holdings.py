@@ -32,7 +32,7 @@ HOLDINGS: list[Holding] = [
     Holding("Mirae Small 250 ETF",      "MOSMALL250.NS",  1,    0.00, "etf"),   # TODO: add avg price
     Holding("GoldBees",                 "GOLDBEES.NS",    1,    0.00, "etf"),   # TODO: add avg price
     Holding("ICICI Silver ETF",         "SILVERIETF.NS",  1,    0.00, "etf"),   # TODO: add avg price
-    Holding("Kotak Nifty IT ETF",       "KOTAKITIETF.NS", 1,    0.00, "etf"),   # TODO: add avg price
+    Holding("Kotak Nifty IT ETF",       "IT.NS", 1,    0.00, "etf"),   # TODO: add avg price
     Holding("Mirae Nasdaq 100 ETF",     "MON100.NS",      1,    0.00, "etf"),   # TODO: add avg price
     Holding("Hang Seng BeES",           "HNGSNGBEES.NS",  1,    0.00, "etf"),   # TODO: add avg price
 ]

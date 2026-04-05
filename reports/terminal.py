@@ -7,10 +7,11 @@ from core.models import PortfolioSummary
 
 
 def _fmt_pnl(pnl: float | None, pnl_pct: float | None) -> tuple[str, str]:
-    if pnl is None:
+    if pnl is None or pnl_pct is None:
         return "N/A", "N/A"
     arrow = "▲" if pnl >= 0 else "▼"
     sign  = "+" if pnl_pct >= 0 else ""
+    
     return f"{arrow} {abs(pnl):,.2f}", f"{sign}{pnl_pct:.2f}%"
 
 
