@@ -3,8 +3,7 @@ holdings.py — edit this file to update your portfolio.
 
 Each entry: "Display Name": (TICKER.NS, quantity, avg_buy_price, "stock"|"etf")
 
-Set avg_buy_price to 0.0 for holdings where you haven't tracked cost basis yet.
-Those will show P&L as N/A in reports.
+If avg_buy_price is 0.0, it will show P&L as N/A in reports.
 """
 
 from core.models import Holding
