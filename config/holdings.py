@@ -3,7 +3,7 @@ holdings.py — edit this file to update your portfolio.
 
 Each entry: "Display Name": (TICKER.NS, quantity, avg_buy_price, "stock"|"etf")
 
-If avg_buy_price is 0.0, it will show P&L as N/A in reports.
+If avg_buy_price or quantity is 0, it will show P&L as N/A in reports.
 """
 
 from core.models import Holding

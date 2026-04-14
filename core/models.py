@@ -9,11 +9,18 @@ class Holding:
     ticker: str
     qty: int
     avg_price: float
-    category: str = "stock"  # "stock" | "etf"
+    category: str = "stock"
 
     # Populated after price fetch
     market_price: Optional[float] = None
     fetch_error: Optional[str] = None
+    
+    def __post_init__(self):
+        if self.qty <= 0:
+            raise ValueError("Quantity must be positive")
+
+        if self.avg_price <= 0:
+            raise ValueError("Average price must be positive")
 
     @property
     def invested(self) -> float:

@@ -1,6 +1,4 @@
-"""
-settings.py — global configuration for the portfolio tracker.
-"""
+# settings.py — global configuration for the portfolio tracker.
 
 from pathlib import Path
 

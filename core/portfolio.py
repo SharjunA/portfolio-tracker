@@ -1,6 +1,4 @@
-"""
-portfolio.py — high-level Portfolio class: load → fetch → summarise.
-"""
+# portfolio.py — high-level Portfolio class: load → fetch → summarise.
 
 import csv
 from datetime import datetime
@@ -42,6 +40,7 @@ class Portfolio:
             "pnl": s.total_pnl,
             "pnl_pct": s.total_pnl_pct,
         }
+        
         write_header = not HISTORY_FILE.exists()
         with open(HISTORY_FILE, "a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=row.keys())
