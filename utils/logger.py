@@ -1,6 +1,4 @@
-"""
-logger.py — single place to configure logging for the whole project.
-"""
+# logger.py — single place to configure logging for the whole project.
 
 import logging
 import sys
