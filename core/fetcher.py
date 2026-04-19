@@ -1,6 +1,4 @@
-"""
-fetcher.py — fetches live NSE prices via yfinance with local disk cache.
-"""
+# fetcher.py — fetches live NSE prices via yfinance with local disk cache.
 
 import json
 import time
