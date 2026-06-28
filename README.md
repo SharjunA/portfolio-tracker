@@ -44,11 +44,22 @@ portfolio_tracker/
 │   ├── cache/            ← price cache (gitignored)
 │   ├── exports/          ← generated Excel files (gitignored)
 │   └── history/          ← daily portfolio value snapshots (gitignored)
+├── db/
+│   ├── migrations/  
+        ├── schema_definition.sql       
+│   ├── seed/ 
+        ├── dividends.sql
+        ├── transactions.sql     
+│   └── __init__.py
+    └──  connection.py
+    └──  models.py
+    └──  test.py 
 ├── utils/
 │   ├── logger.py         ← centralised logging
 │   └── helpers.py        ← INR formatting, etc.
 ├── tests/
 │   └── test_calculator.py
+├── docker-compose.yml
 ├── main.py               ← CLI entrypoint
 └── requirements.txt
 ```
