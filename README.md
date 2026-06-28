@@ -1,30 +1,15 @@
 # Portfolio Tracker
 
-Fetches live NSE stock and ETF prices, calculates P&L, and generates reports.
+A Python-based portfolio analytics system that fetches live NSE stock and ETF prices, calculates portfolio P&L, and generates terminal and Excel reports.
 
-## Setup
+## Features
 
-```bash
-python -m venv .venv
-source .venv/bin/activate       # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-## Usage
-
-```bash
-# Terminal + Excel report (default)
-python main.py
-
-# Force fresh prices (bypass 15-min cache)
-python main.py --no-cache
-
-# Terminal only
-python main.py --report terminal
-
-# Excel only
-python main.py --report excel
-```
+- Live price fetching with caching and retry handling
+- Portfolio valuation and profit/loss calculation
+- Terminal report output
+- Excel export
+- PostgreSQL-backed persistent storage
+- Docker-based local PostgreSQL development environment
 
 ## Project structure
 
@@ -52,7 +37,8 @@ portfolio_tracker/
 │   ├── exports/
 │   └── history/
 ├── tests/
-│   ├── test_calculator.py
+│   ├── test_alerts.py
+|   ├── test_calculator.py
 │   └── test_db.py
 ├── utils/
 │   ├── logger.py
@@ -64,15 +50,4 @@ portfolio_tracker/
 ├── main.py
 ├── README.md
 └── requirements.txt
-```
-
-## Updating holdings
-
-Open `config/holdings.py` and edit the `HOLDINGS` list.  
-Each entry is a `Holding(name, ticker, qty, avg_buy_price, category)`.
-
-## Running tests
-
-```bash
-pytest tests/ -v
 ```
