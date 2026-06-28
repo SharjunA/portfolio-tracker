@@ -31,36 +31,38 @@ python main.py --report excel
 ```
 portfolio_tracker/
 ├── config/
-│   ├── holdings.py       ← edit this to update your portfolio
-│   └── settings.py       ← paths, cache TTL, colors, etc.
+│   ├── settings.py
+│   └── holdings.py              # temporary; remove later once DB is source of truth
 ├── core/
-│   ├── models.py         ← Holding and PortfolioSummary dataclasses
-│   ├── fetcher.py        ← yfinance price fetching with cache + retries
-│   └── portfolio.py      ← Portfolio class (orchestrates fetch → summarise)
-├── reports/
-│   ├── terminal.py       ← coloured terminal table
-│   └── excel.py          ← formatted Excel report
-├── data/
-│   ├── cache/            ← price cache (gitignored)
-│   ├── exports/          ← generated Excel files (gitignored)
-│   └── history/          ← daily portfolio value snapshots (gitignored)
+│   ├── models.py
+│   ├── fetcher.py
+│   └── portfolio.py
 ├── db/
-│   ├── migrations/  
-        ├── schema_definition.sql       
-│   ├── seed/ 
-        ├── dividends.sql
-        ├── transactions.sql     
-│   └── __init__.py
-    └──  connection.py
-    └──  models.py
-    └──  test.py 
-├── utils/
-│   ├── logger.py         ← centralised logging
-│   └── helpers.py        ← INR formatting, etc.
+│   ├── connection.py
+│   ├── migrations/
+│   │   └── 001_initial_schema.sql
+│   └── seed/
+│       ├── transactions.sql
+│       └── dividends.sql
+├── reports/
+│   ├── terminal.py
+│   └── excel.py
+├── data/
+│   ├── cache/
+│   ├── exports/
+│   └── history/
 ├── tests/
-│   └── test_calculator.py
+│   ├── test_calculator.py
+│   └── test_db.py
+├── utils/
+│   ├── logger.py
+│   └── helpers.py
+├── .env
+├── .env.example
+├── .gitignore
 ├── docker-compose.yml
-├── main.py               ← CLI entrypoint
+├── main.py
+├── README.md
 └── requirements.txt
 ```
 
