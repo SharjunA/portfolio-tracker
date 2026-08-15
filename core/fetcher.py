@@ -75,6 +75,15 @@ def fetch_all(holdings: list[Holding], use_cache: bool = True) -> list[Holding]:
     """
     logger.info(f"Fetching prices for {len(holdings)} holdings...")
     for h in holdings:
+        # Reset before each attempt — holdings objects can be reused across
+        # refresh() calls (e.g. scheduler --loop reuses the same list), so
+        # a stale fetch_error from a prior failed run must not linger after
+        # a later successful fetch.
+        h.market_price = None
+        h.fetch_error = None
+        if not h.priceable:
+            h.fetch_error = "No market data source configured for this instrument"
+            continue
         try:
             h.market_price = fetch_price(h.ticker, use_cache=use_cache)
         except Exception as e:

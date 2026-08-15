@@ -11,6 +11,12 @@ class Holding:
     avg_price: float
     category: str = "stock"
 
+    # False for instruments with no configured market data source (e.g. no
+    # market_ticker in the instruments table yet). Such holdings still show
+    # invested value — they just never get a market_price, by design, not
+    # because a fetch failed. See core.fetcher.fetch_all.
+    priceable: bool = True
+
     # Populated after price fetch
     market_price: Optional[float] = None
     fetch_error: Optional[str] = None
@@ -19,8 +25,8 @@ class Holding:
         if self.qty <= 0:
             raise ValueError("Quantity must be positive")
 
-        if self.avg_price <= 0:
-            raise ValueError("Average price must be positive")
+        if self.avg_price < 0:
+            raise ValueError("Average price cannot be negative")
 
     @property
     def invested(self) -> float:

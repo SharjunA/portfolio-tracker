@@ -19,7 +19,6 @@ from pathlib import Path
 # Ensure project root is on the path when run directly
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from config.holdings import HOLDINGS
 from core.portfolio import Portfolio
 from reports import excel, terminal
 from utils.logger import get_logger
@@ -27,9 +26,20 @@ from utils.logger import get_logger
 logger = get_logger(__name__)
 
 
-def run_once() -> None:
+def _load_holdings(source: str):
+    if source == "db":
+        from db.portfolio_repository import load_holdings
+        holdings = load_holdings()
+        logger.info(f"Loaded {len(holdings)} holdings from DB (transactions).")
+        return holdings
+
+    from config.holdings import HOLDINGS
+    return HOLDINGS
+
+
+def run_once(source: str = "static") -> None:
     logger.info("Starting scheduled portfolio refresh...")
-    portfolio = Portfolio(HOLDINGS)
+    portfolio = Portfolio(_load_holdings(source))
     portfolio.refresh(use_cache=False)   # always fresh on scheduled runs
     summary = portfolio.summary
 
@@ -46,11 +56,11 @@ def run_once() -> None:
         logger.warning("matplotlib not installed — skipping charts.")
 
 
-def run_loop(interval_minutes: int) -> None:
+def run_loop(interval_minutes: int, source: str = "static") -> None:
     logger.info(f"Scheduler loop started — running every {interval_minutes} min.")
     while True:
         try:
-            run_once()
+            run_once(source)
         except Exception as e:
             logger.error(f"Scheduled run failed: {e}")
         time.sleep(interval_minutes * 60)
@@ -60,9 +70,21 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Scheduled portfolio report runner")
     p.add_argument("--loop", action="store_true", help="Run on a repeating interval")
     p.add_argument("--interval", type=int, default=30, help="Interval in minutes (default: 30)")
+    p.add_argument(
+        "--source",
+        choices=["static", "db"],
+        default="static",
+        help="Where holdings come from (default: static, unchanged behaviour).",
+    )
     args = p.parse_args()
 
     if args.loop:
-        run_loop(args.interval)
+        run_loop(args.interval, args.source)
     else:
-        run_once()
+        from db.portfolio_repository import MissingInstrumentMetadataError
+        from core.position_calculator import InvalidTransactionHistoryError
+        try:
+            run_once(args.source)
+        except (MissingInstrumentMetadataError, InvalidTransactionHistoryError) as e:
+            logger.error(str(e))
+            sys.exit(1)

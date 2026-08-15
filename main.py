@@ -13,7 +13,6 @@ Usage:
 import argparse
 import sys
 
-from config.holdings import HOLDINGS
 from core.portfolio import Portfolio
 from reports import excel, terminal
 from utils.logger import get_logger
@@ -34,14 +33,42 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Force fresh price fetch, ignoring local cache",
     )
+    p.add_argument(
+        "--source",
+        choices=["static", "db"],
+        default="static",
+        help=(
+            "Where holdings come from. 'static' uses config/holdings.py "
+            "(default, unchanged behaviour). 'db' derives current "
+            "positions from the transactions table in PostgreSQL."
+        ),
+    )
     return p.parse_args()
+
+
+def load_holdings(source: str):
+    if source == "db":
+        from db.portfolio_repository import load_holdings as load_from_db
+        from db.portfolio_repository import MissingInstrumentMetadataError
+        from core.position_calculator import InvalidTransactionHistoryError
+        try:
+            holdings = load_from_db()
+        except (MissingInstrumentMetadataError, InvalidTransactionHistoryError) as e:
+            logger.error(str(e))
+            sys.exit(1)
+        logger.info(f"Loaded {len(holdings)} holdings from DB (transactions).")
+        return holdings
+
+    from config.holdings import HOLDINGS
+    return HOLDINGS
 
 
 def main() -> None:
     args = parse_args()
     use_cache = not args.no_cache
 
-    portfolio = Portfolio(HOLDINGS)
+    holdings = load_holdings(args.source)
+    portfolio = Portfolio(holdings)
 
     try:
         portfolio.refresh(use_cache=use_cache)
