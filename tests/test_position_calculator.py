@@ -92,3 +92,8 @@ class TestAggregateTransactions:
         # of 0 rather than raising a ZeroDivisionError.
         result = aggregate_transactions([])
         assert result == {}
+
+    def test_fractional_quantity_is_preserved(self):
+        result = aggregate_transactions([row("GOLD", "BUY", 1.25, 100)])
+        assert result["GOLD"].quantity == Decimal("1.25")
+        assert result["GOLD"].avg_price == Decimal("100")

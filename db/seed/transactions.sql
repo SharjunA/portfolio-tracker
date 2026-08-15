@@ -1,5 +1,3 @@
-SELECT * FROM transactions;
-
 INSERT INTO transactions (ticker, transaction_type, quantity, price, charges, transaction_date, notes)
 VALUES ('ITC', 'BUY', 1, 419.25, 1.10, '2025-06-02', NULL),
        ('ASHOKLEY', 'BUY', 4, 124.55, 1.32, '2025-07-25', NULL),

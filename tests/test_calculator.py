@@ -61,4 +61,13 @@ class TestPortfolioSummary:
         h2.fetch_error = "Timeout"
         s = PortfolioSummary([h1, h2])
         assert s.total_market_value == 1100.0   # h2 excluded
+        assert s.total_invested == 1500.0       # capital remains visible
+        assert s.total_pnl == 100.0             # h2 P&L is unknown
+        assert s.total_pnl_pct == 10.0         # denominator is priced capital
         assert len(s.failed) == 1
+
+    def test_fractional_quantity_is_preserved(self):
+        h = make_holding(qty=1.25, avg=100.0, market=120.0)
+        assert h.qty == 1.25
+        assert h.invested == 125.0
+        assert h.market_value == 150.0

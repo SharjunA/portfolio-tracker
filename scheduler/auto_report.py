@@ -37,7 +37,7 @@ def _load_holdings(source: str):
     return HOLDINGS
 
 
-def run_once(source: str = "static") -> None:
+def run_once(source: str = "db") -> None:
     logger.info("Starting scheduled portfolio refresh...")
     portfolio = Portfolio(_load_holdings(source))
     portfolio.refresh(use_cache=False)   # always fresh on scheduled runs
@@ -56,7 +56,7 @@ def run_once(source: str = "static") -> None:
         logger.warning("matplotlib not installed — skipping charts.")
 
 
-def run_loop(interval_minutes: int, source: str = "static") -> None:
+def run_loop(interval_minutes: int, source: str = "db") -> None:
     logger.info(f"Scheduler loop started — running every {interval_minutes} min.")
     while True:
         try:
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     p.add_argument(
         "--source",
         choices=["static", "db"],
-        default="static",
-        help="Where holdings come from (default: static, unchanged behaviour).",
+        default="db",
+        help="Where holdings come from (default: db; static is the compatibility fallback).",
     )
     args = p.parse_args()
 
@@ -87,4 +87,7 @@ if __name__ == "__main__":
             run_once(args.source)
         except (MissingInstrumentMetadataError, InvalidTransactionHistoryError) as e:
             logger.error(str(e))
+            sys.exit(1)
+        except Exception as e:
+            logger.error(f"Scheduled report failed: {e}")
             sys.exit(1)

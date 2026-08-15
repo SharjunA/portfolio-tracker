@@ -16,3 +16,9 @@ CREATE TABLE instruments (
 );
 
 CREATE INDEX idx_instruments_category ON instruments (category);
+
+-- A transaction without instrument metadata cannot be rendered correctly.
+-- Apply this after 001_initial_schema.sql and before loading transaction data.
+ALTER TABLE transactions
+    ADD CONSTRAINT transactions_ticker_fkey
+    FOREIGN KEY (ticker) REFERENCES instruments (ticker);

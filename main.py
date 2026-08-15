@@ -36,12 +36,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--source",
         choices=["static", "db"],
-        default="static",
         help=(
-            "Where holdings come from. 'static' uses config/holdings.py "
-            "(default, unchanged behaviour). 'db' derives current "
-            "positions from the transactions table in PostgreSQL."
+            "Where holdings come from. 'db' derives current positions from "
+            "PostgreSQL transactions; 'static' is the compatibility fallback."
         ),
+        default="db",
     )
     return p.parse_args()
 
@@ -67,7 +66,11 @@ def main() -> None:
     args = parse_args()
     use_cache = not args.no_cache
 
-    holdings = load_holdings(args.source)
+    try:
+        holdings = load_holdings(args.source)
+    except Exception as e:
+        logger.error(f"Failed to load holdings from {args.source}: {e}")
+        sys.exit(1)
     portfolio = Portfolio(holdings)
 
     try:

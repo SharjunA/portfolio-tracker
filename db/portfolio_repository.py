@@ -100,32 +100,24 @@ def load_holdings() -> list[Holding]:
 
     holdings: list[Holding] = []
     unpriceable: list[str] = []
-    fractional: list[str] = []
-
     for ticker, pos in sorted(positions.items()):
         name, category, market_ticker = metadata[ticker]
 
         qty = pos.quantity
-        if qty != qty.to_integral_value():
-            fractional.append(ticker)
-
         # A known instrument with no market_ticker still has real invested
         # capital and belongs in the report — it just can't be priced.
         # Excluding it would under-report total invested capital the same
         # way the stale config/holdings.py under-reported quantities.
-        priceable = market_ticker is not None
+        priceable = bool(market_ticker)
         if not priceable:
             unpriceable.append(ticker)
 
-        # core.models.Holding.qty is int and avg_price is float today —
-        # see the pending Decimal-adoption item. Cast at this boundary
-        # rather than silently losing precision deeper in the app.
         holdings.append(
             Holding(
                 name=name,
                 ticker=market_ticker if priceable else ticker,
-                qty=int(qty),
-                avg_price=float(pos.avg_price),
+                qty=qty,
+                avg_price=pos.avg_price,
                 category=category,
                 priceable=priceable,
             )
@@ -137,11 +129,4 @@ def load_holdings() -> list[Holding]:
             "but no live price: %s",
             ", ".join(sorted(unpriceable)),
         )
-    if fractional:
-        logger.warning(
-            "Truncated fractional quantity to int for: %s. Holding.qty is "
-            "int today — revisit if fractional-share instruments are added.",
-            ", ".join(sorted(fractional)),
-        )
-
     return holdings
