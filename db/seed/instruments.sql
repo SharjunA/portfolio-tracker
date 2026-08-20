@@ -5,6 +5,7 @@ INSERT INTO instruments (ticker, name, category, market_ticker) VALUES
     ('ASHOKLEY',   'Ashok Leyland',               'stock', 'ASHOKLEY.NS'),
     ('CANBK',      'Canara Bank',                 'stock', 'CANBK.NS'),
     ('ETERNAL',    'Eternal',                     'stock', 'ETERNAL.NS'),
+    ('ECOSMOBLTY', 'Eco Smart Mobility Ltd',      'stock', 'ECOSMOBLTY.NS'),
     ('FISCHER',    'Fischer Medical Ventures',    'stock', 'FISCHER.NS'),
     ('HDFCBANK',   'HDFC Bank',                   'stock', 'HDFCBANK.NS'),
     ('IRCTC',      'IRCTC',                       'stock', 'IRCTC.NS'),
