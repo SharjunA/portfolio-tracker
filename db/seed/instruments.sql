@@ -3,7 +3,7 @@
 INSERT INTO instruments (ticker, name, category, market_ticker) VALUES
     ('ANANTRAJ',   'Anant Raj Ltd',               'stock', 'ANANTRAJ.NS'),
     ('ASHOKLEY',   'Ashok Leyland',               'stock', 'ASHOKLEY.NS'),
-    ('BSE',        'BSE Ltd',                     'stock', 'CANBK.BSE'),
+    ('BSE',        'BSE Ltd',                     'stock', 'BSE.NS'),
     ('CANBK',      'Canara Bank',                 'stock', 'CANBK.NS'),
     ('ECOSMOBLTY', 'Eco Smart Mobility Ltd',      'stock', 'ECOSMOBLTY.NS'),
     ('EIEL',       'Enviro Infra Engineers Ltd',  'stock', 'EIEL.NS'),
@@ -23,6 +23,7 @@ INSERT INTO instruments (ticker, name, category, market_ticker) VALUES
     ('MIDCAPIETF', 'ICICI Midcap 150 ETF',        'etf',   'MIDCAPIETF.NS'),
     ('NIFTYIETF',  'ICICI Nifty 50 ETF',          'etf',   'NIFTYIETF.NS'),
     ('NEXT50IETF', 'ICICI Nifty Next 50 ETF',     'etf',   'NEXT50IETF.NS'),
+    ('NSE',        'NSE Ltd',                     'stock', 'NSE.NS'),
     ('NTPC',       'NTPC',                        'stock', 'NTPC.NS'),
     ('PFC',        'PFC',                         'stock', 'PFC.NS'),
     ('POWERGRID',  'Power Grid Corporation',      'stock', 'POWERGRID.NS'),
