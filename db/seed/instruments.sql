@@ -23,7 +23,7 @@ INSERT INTO instruments (ticker, name, category, market_ticker) VALUES
     ('MIDCAPIETF', 'ICICI Midcap 150 ETF',        'etf',   'MIDCAPIETF.NS'),
     ('NIFTYIETF',  'ICICI Nifty 50 ETF',          'etf',   'NIFTYIETF.NS'),
     ('NEXT50IETF', 'ICICI Nifty Next 50 ETF',     'etf',   'NEXT50IETF.NS'),
-    ('NSE',        'NSE Ltd',                     'stock', 'NSE.NS'),
+    ('NSE',        'NSE Ltd',                     'stock', 'NSE.BO'),
     ('NTPC',       'NTPC',                        'stock', 'NTPC.NS'),
     ('PFC',        'PFC',                         'stock', 'PFC.NS'),
     ('POWERGRID',  'Power Grid Corporation',      'stock', 'POWERGRID.NS'),
