@@ -12,6 +12,7 @@ INSERT INTO instruments (ticker, name, category, market_ticker) VALUES
     ('GOLDBEES',   'Nippon India GoldBees',       'etf',   'GOLDBEES.NS'),
     ('HNGSNGBEES', 'Hang Seng BeES',              'etf',   'HNGSNGBEES.NS'),
     ('HDFCBANK',   'HDFC Bank',                   'stock', 'HDFCBANK.NS'),
+    ('HAPPSTMNDS', 'Happiest Minds Technology',   'stock', 'HAPPSTMNDS.NS'),
     ('IRCTC',      'IRCTC',                       'stock', 'IRCTC.NS'),
     ('IT',         'Kotak Nifty IT ETF',          'etf',   'IT.NS'),
     ('ITC',        'ITC',                         'stock', 'ITC.NS'),
