@@ -19,6 +19,7 @@ INSERT INTO instruments (ticker, name, category, market_ticker) VALUES
     ('IT',         'Kotak Nifty IT ETF',          'etf',   'IT.NS'),
     ('ITC',        'ITC',                         'stock', 'ITC.NS'),
     ('ITCHOTELS',  'ITC Hotels',                  'stock', 'ITCHOTELS.NS'),
+    ('JPL',        'Jio Platforms Ltd',           'stock', 'JPL.NS'),
     ('KPIT',       'KPIT Technologies',           'stock', 'KPIT.NS'),
     ('LICI',       'LIC India',                   'stock', 'LICI.NS'),
     ('MON100',     'Motilal Oswal Nasdaq 100 ETF','etf',   'MON100.NS'),
